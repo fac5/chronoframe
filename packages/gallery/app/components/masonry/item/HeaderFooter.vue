@@ -59,7 +59,7 @@ const copyrightName = computed(
       © {{ $dayjs().format('YYYY') }} {{ copyrightName }}
     </p>
     <a
-      :href="websiteHref || 'https://github.com/HoshinoSuzumi/chronoframe'"
+      :href="websiteHref || 'https://blog.fivk.cn'"
       target="_blank"
       rel="noopener noreferrer"
       :class="
@@ -75,11 +75,11 @@ const copyrightName = computed(
       @mouseleave="isRepoLinkHovering = false"
     >
       <Icon
-        :name="websiteHref ? 'tabler:external-link' : 'mdi:github'"
+        :name="websiteHref ? 'tabler:external-link' : 'mdi:account'"
         mode="svg"
         :class="isFixed ? '' : '-mt-px inline-block text-sm'"
       />
-      ChronoFrame
+      Fivk's Blog
       <template v-if="isFixed || showMenuVersion"
         >{{ ' ' }}{{ $config.public.VERSION }}</template
       >
@@ -92,7 +92,7 @@ const copyrightName = computed(
           :transition="{ duration: 0.3, ease: 'easeInOut' }"
           style="overflow: hidden; white-space: nowrap"
         >
-          ({{ $config.public.VERSION }})
+          (https://blog.fivk.cn)
         </motion.span>
       </AnimatePresence>
     </a>
