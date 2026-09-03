@@ -1,11 +1,9 @@
 {
   "name": "chronoframe",
-  "version": "1.2.0",
-  "private": true,
-  "license": "AGPL-3.0-only",
+  "version": "0.14.1",
   "author": {
-    "name": "ChronoFrame",
-    "email": "master@uniiem.com"
+    "name": "Fivk",
+    "email": "admin@fivk.cn"
   },
   "type": "module",
   "scripts": {
