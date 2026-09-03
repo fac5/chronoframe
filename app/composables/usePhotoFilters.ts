@@ -50,7 +50,7 @@ export function usePhotoFilters() {
         })
       }
 
-      // 相机统计 (从 EXIF 获取)
+      // 设备统计 (从 EXIF 获取)
       if (photo.exif?.Make && photo.exif?.Model) {
         const camera = `${photo.exif.Make} ${photo.exif.Model}`
         stats.cameras.set(camera, (stats.cameras.get(camera) || 0) + 1)
@@ -152,7 +152,7 @@ export function usePhotoFilters() {
         if (!hasMatchingTag) return false
       }
 
-      // 相机筛选
+      // 相机设备筛选
       if (activeFilters.value.cameras.length > 0) {
         const photoCamera = photo.exif?.Make && photo.exif?.Model 
           ? `${photo.exif.Make} ${photo.exif.Model}`
