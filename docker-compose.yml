@@ -1,6 +1,9 @@
 services:
   chronoframe:
-    image: ghcr.io/hoshinosuzumi/chronoframe:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: chronoframe-fivk-custom:v0.14.1
     container_name: chronoframe
     restart: unless-stopped
     ports:
@@ -9,18 +12,3 @@ services:
       - ./data:/app/data
     env_file:
       - .env
-
-  # database:
-  #   image: postgres:15-alpine
-  #   container_name: chronoframe_db
-  #   environment:
-  #     POSTGRES_DB: chronoframe
-  #     POSTGRES_USER: chronoframe
-  #     POSTGRES_PASSWORD: your-password
-  #   volumes:
-  #     - postgres_data:/var/lib/postgresql/data
-  #   ports:
-  #     - "5432:5432"
-
-# volumes:
-#   postgres_data:
