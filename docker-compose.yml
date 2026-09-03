@@ -1,6 +1,9 @@
 services:
   chronoframe:
-    image: ghcr.io/hoshinosuzumi/chronoframe:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: chronoframe-fivk-custom:v0.14.1
     container_name: chronoframe
     restart: unless-stopped
     ports:
