@@ -188,7 +188,7 @@ const onShuffle = () => {
         </div>
       </template>
 
-      <!-- 相机面板 -->
+      <!-- 相机设备面板 -->
       <template #cameras>
         <div class="space-y-0.5 max-h-64 overflow-y-auto">
           <div

@@ -1,5 +1,5 @@
 /**
- * 处理相机品牌和型号的显示，避免品牌名称重复
+ * 处理设备品牌和型号的显示，避免品牌名称重复
  */
 export function formatCameraInfo(make?: string, model?: string): string {
   if (!make && !model) return ''
