@@ -260,7 +260,7 @@ const isRepoLinkHovering = ref(false)
         >
           <a
             ref="projectLink"
-            href="https://github.com/HoshinoSuzumi/chronoframe"
+            href="https://blog.fivk.cn"
             target="_blank"
             rel="noopener noreferrer"
             class="hover:underline inline-flex items-center gap-0.5 group"
@@ -268,21 +268,21 @@ const isRepoLinkHovering = ref(false)
             @mouseleave="isRepoLinkHovering = false"
           >
             <Icon
-              name="mdi:github"
-              class="inline-block text-sm -mt-[1px]"
-              mode="svg"
+                name="line-md:account"
+                class="inline-block text-sm -mt-[1px]"
+                mode="svg"
             />
-            ChronoFrame
+            Fivk's Blog
             <AnimatePresence>
               <motion.span
-                v-if="isRepoLinkHovering"
-                :initial="{ width: 0, opacity: 0 }"
-                :animate="{ width: 'auto', opacity: 1 }"
-                :exit="{ width: 0, opacity: 0 }"
-                :transition="{ duration: 0.3, ease: 'easeInOut' }"
-                style="overflow: hidden; white-space: nowrap"
+                  v-if="isRepoLinkHovering"
+                  :initial="{ width: 0, opacity: 0 }"
+                  :animate="{ width: 'auto', opacity: 1 }"
+                  :exit="{ width: 0, opacity: 0 }"
+                  :transition="{ duration: 0.3, ease: 'easeInOut' }"
+                  style="overflow: hidden; white-space: nowrap"
               >
-                ({{ $config.public.VERSION }})
+                (https://blog.fivk.cn)
               </motion.span>
             </AnimatePresence>
           </a>
