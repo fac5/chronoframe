@@ -33,7 +33,7 @@
       },
       "filter": {
         "empty": {
-          "cameras": "没有相机信息",
+          "cameras": "没有设备信息",
           "cities": "没有城市信息",
           "lenses": "没有镜头信息",
           "tags": "没有标签"
@@ -43,7 +43,7 @@
           "showStarsAndAbove": "展示 {count} 星以上的照片"
         },
         "tabs": {
-          "cameras": "相机",
+          "cameras": "设备",
           "cities": "城市",
           "lenses": "镜头",
           "ratings": "评分",
@@ -300,7 +300,7 @@
       "program": "曝光程序",
       "mode": "曝光模式"
     },
-    "camera": "相机",
+    "camera": "设备",
     "lens": "镜头",
     "wb": {
       "title": "白平衡",

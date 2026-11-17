@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: chronoframe-fivk-custom:v0.14.1
+    image: chronoframe-fivk-custom:v1.2.0
     container_name: chronoframe
     restart: unless-stopped
     ports:
