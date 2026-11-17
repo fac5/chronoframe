@@ -1,6 +1,8 @@
 {
   "name": "chronoframe",
-  "version": "0.14.1",
+  "version": "1.2.0",
+  "private": true,
+  "license": "AGPL-3.0-only",
   "author": {
     "name": "Fivk",
     "email": "admin@fivk.cn"
