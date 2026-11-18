@@ -1,5 +1,9 @@
 # ChronoFrame
 
+> **Fork 说明：** 本仓库是 [ChronoFrame](https://github.com/HoshinoSuzumi/chronoframe) 的个人自用
+> 修改版，非官方项目，不用于商业用途。定制改动位于 `fivk-custom` 分支，会随上游正式版更新而
+> rebase；与上游的具体差异记录在该分支的提交历史中。
+
 <p align="center">
   <img src="./apps/self-hosted/public/chronoframe-banner.png" alt="ChronoFrame">
 </p>

@@ -1,5 +1,10 @@
 # ChronoFrame
 
+> **Fork notice:** This repository is a personal, non-commercial fork of
+> [ChronoFrame](https://github.com/HoshinoSuzumi/chronoframe). Customizations live on the
+> `fivk-custom` branch and are rebased onto each upstream release; the exact differences
+> from upstream are recorded in that branch's commit history.
+
 <p align="center">
   <img src="./apps/self-hosted/public/chronoframe-banner.png" alt="ChronoFrame">
 </p>

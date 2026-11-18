@@ -4,6 +4,13 @@ defineProps<{
   photos: Photo[]
 }>()
 
+const entry = useEntryContext()
+const capabilities = useEntryCapabilities()
+const edition = computed(
+  () => entry.value?.capabilities.edition ?? capabilities.edition,
+)
+const showVersion = computed(() => edition.value !== 'site')
+
 const copyrightName = computed(
   () => getSetting('app:author') || getSetting('app:title'),
 )
@@ -55,7 +62,10 @@ const filings = [
           rel="noopener noreferrer"
           class="transition-colors hover:text-neutral-800 dark:hover:text-neutral-200"
         >
-          Powered by <span class="font-semibold">ChronoFrame</span>
+          Fork of <span class="font-semibold">ChronoFrame</span>
+          <template v-if="showVersion"
+            >{{ ' ' }}v{{ $config.public.VERSION }}</template
+          >
         </a>
       </p>
       <div
