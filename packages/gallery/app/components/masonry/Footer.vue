@@ -1,25 +1,27 @@
 <script lang="ts" setup>
-import { siteFooterLink } from '../../utils/site-footer-link'
-
 defineProps<{
   summary: string
   photos: Photo[]
 }>()
 
-const entry = useEntryContext()
-const capabilities = useEntryCapabilities()
-const edition = computed(
-  () => entry.value?.capabilities.edition ?? capabilities.edition,
-)
-const brandHref = computed(
-  () =>
-    siteFooterLink(edition.value, 'embedded', entry.value?.siteId) ??
-    'https://github.com/HoshinoSuzumi/chronoframe',
-)
-const showVersion = computed(() => edition.value !== 'site')
 const copyrightName = computed(
   () => getSetting('app:author') || getSetting('app:title'),
 )
+
+const projectHref = 'https://github.com/fac5/chronoframe'
+
+const filings = [
+  {
+    label: '黔ICP备案 2022009864号-1',
+    href: 'https://beian.miit.gov.cn/',
+    icon: 'tabler:building-bank',
+  },
+  {
+    label: '黔公安备案 52262702000070',
+    href: 'https://beian.mps.gov.cn/#/query/webSearch?code=52262702000070',
+    icon: 'mdi:police-badge-outline',
+  },
+]
 </script>
 
 <template>
@@ -38,22 +40,44 @@ const copyrightName = computed(
       >
         {{ summary }}
       </p>
-      <p
-        v-if="copyrightName"
-        class="text-[11px] text-neutral-500 dark:text-neutral-500"
-      >
-        © {{ $dayjs().format('YYYY') }} {{ copyrightName }}
+      <p class="text-[11px] text-neutral-500 dark:text-neutral-400">
+        <template v-if="copyrightName">
+          © {{ $dayjs().format('YYYY') }} {{ copyrightName }}
+          <span
+            class="opacity-40"
+            aria-hidden="true"
+            >·</span
+          >
+        </template>
+        <a
+          :href="projectHref"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="transition-colors hover:text-neutral-800 dark:hover:text-neutral-200"
+        >
+          Powered by <span class="font-semibold">ChronoFrame</span>
+        </a>
       </p>
-      <a
-        :href="brandHref"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center gap-1 text-[11px] text-neutral-500/80 transition-colors hover:text-neutral-800 dark:text-neutral-500 dark:hover:text-neutral-200"
+      <div
+        class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1.5 pt-0.5 text-[11px] leading-5"
       >
-        Powered by
-        <span class="font-semibold">ChronoFrame</span>
-        <template v-if="showVersion">v{{ $config.public.VERSION }}</template>
-      </a>
+        <a
+          v-for="filing in filings"
+          :key="filing.href"
+          :href="filing.href"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1 text-neutral-500/80 underline decoration-neutral-400/40 underline-offset-2 transition-colors hover:text-neutral-800 hover:decoration-neutral-600 dark:text-neutral-400 dark:decoration-neutral-500/40 dark:hover:text-neutral-200 dark:hover:decoration-neutral-300"
+        >
+          <Icon
+            :name="filing.icon"
+            mode="svg"
+            class="size-3 shrink-0"
+            aria-hidden="true"
+          />
+          {{ filing.label }}
+        </a>
+      </div>
     </div>
   </footer>
 </template>
