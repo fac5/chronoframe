@@ -1331,6 +1331,20 @@ const saveMetadataChanges = async () => {
     return
   }
 
+  // An emptied date is an edit, not a no-op: reject it instead of dropping it
+  // from the payload and closing the editor as if the save succeeded.
+  const dateTakenInstant = dateTakenChanged.value
+    ? fromDateTimeLocal(editFormState.dateTaken)
+    : undefined
+  if (dateTakenChanged.value && !dateTakenInstant) {
+    toast.add({
+      title: $t('dashboard.photos.messages.invalidDateTaken'),
+      description: '',
+      color: 'error',
+    })
+    return
+  }
+
   isSavingMetadata.value = true
   try {
     const payload: {
@@ -1368,9 +1382,8 @@ const saveMetadataChanges = async () => {
       payload.rating = editFormState.rating
     }
 
-    if (dateTakenChanged.value) {
-      const instant = fromDateTimeLocal(editFormState.dateTaken)
-      if (instant) payload.dateTaken = instant
+    if (dateTakenInstant) {
+      payload.dateTaken = dateTakenInstant
     }
 
     let hasAnySuccessfulAction = false

@@ -23,6 +23,22 @@ const WRITABLE_EXTENSIONS: Record<string, string> = {
   heif: '.heic',
 }
 
+/** MIME types for the extensions an edit can publish. */
+const CONTENT_TYPES: Record<string, string> = {
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.png': 'image/png',
+  '.webp': 'image/webp',
+  '.gif': 'image/gif',
+  '.bmp': 'image/bmp',
+  '.tif': 'image/tiff',
+  '.tiff': 'image/tiff',
+  '.avif': 'image/avif',
+  '.heic': 'image/heic',
+  '.heif': 'image/heif',
+  '.hif': 'image/heif',
+}
+
 /**
  * exiftool validates a file's content against its extension and refuses to
  * write on a mismatch ("Not a valid JPG (looks more like a PNG)"). Uploads keep
@@ -145,7 +161,6 @@ export async function editPhotoMetadata(
     exifUpdates.CreateDate = stamp
     exifUpdates.DateTimeDigitized = stamp
     exifUpdates.OffsetTimeOriginal = formatExifOffset(capturedAt)
-    exifUpdates.OffsetTime = exifUpdates.OffsetTimeOriginal
     exifUpdates.OffsetTimeDigitized = exifUpdates.OffsetTimeOriginal
   }
 
@@ -155,26 +170,11 @@ export async function editPhotoMetadata(
   const stagedKey = `.generated/metadata/${randomUUID()}/${path.posix.basename(photo.storageKey)}`
   let cleanupKey = stagedKey
   const ext = path.extname(photo.storageKey).toLowerCase() || '.jpg'
-  const contentType =
-    (
-      {
-        '.jpg': 'image/jpeg',
-        '.jpeg': 'image/jpeg',
-        '.png': 'image/png',
-        '.webp': 'image/webp',
-        '.gif': 'image/gif',
-        '.bmp': 'image/bmp',
-        '.tif': 'image/tiff',
-        '.tiff': 'image/tiff',
-        '.avif': 'image/avif',
-        '.heic': 'image/heic',
-        '.heif': 'image/heif',
-        '.hif': 'image/heif',
-      } as Record<string, string>
-    )[ext] ?? 'application/octet-stream'
   // The stored object keeps its original key; only the working copy has to
   // carry an extension exiftool agrees with.
   const workingExt = await resolveWorkingExtension(originalBuffer, ext)
+  // Publish the bytes under their real MIME; the stored key may disagree.
+  const contentType = CONTENT_TYPES[workingExt] ?? 'application/octet-stream'
   const tempFile = path.join(tempDir, `edited${workingExt}`)
 
   try {
