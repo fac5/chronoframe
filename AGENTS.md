@@ -4,6 +4,42 @@ ChronoFrame is a photo management and gallery pnpm monorepo built with Nuxt 4,
 Vue 3, TypeScript, Nitro and Tailwind CSS. Read the affected application's or
 package's README before editing; this guide describes shared repository rules.
 
+## Fork 上游同步规范（fivk-custom）
+
+本节是**唯一且自包含的权威规则**，与所用工具无关，本仓库不维护第二份规则文件。
+无论使用哪种 AI 或命令行，只要任务涉及「同步官方更新 / 合并上游 / 处理 fork
+合并冲突」，都必须遵守，无需用户重复说明，也无需读取任何其他文件。无文件系统
+访问的网页版 AI，直接把本节整段复制粘贴给它即可。
+
+本仓库是 ChronoFrame 的个人 fork：`origin` = fac5/chronoframe，`upstream` =
+HoshinoSuzumi/chronoframe（官方）。
+
+- 分支约定：`main` 是 `upstream/main` 的纯镜像，禁止任何本地修改；
+  `fivk-custom` 是长期维护的个性化分支（日常开发只在此分支）；`feat/*` 从 `main`
+  单独开出用于向官方提 PR，禁止携带任何个性化改动。
+- 同步流程（只 merge，不 rebase）：`git fetch upstream` → 在 `main` 上
+  `git merge --ff-only upstream/main` 并推送 `origin/main` → 切到 `fivk-custom`
+  执行 `git merge main`（ours = 我的定制，theirs = 官方）→ 解冲突 →
+  `pnpm install --frozen-lockfile && pnpm lint && pnpm test`。
+- 措辞消歧：用户说「同步 main 的最新版本」「更新 main」「拉最新」「同步一下」
+  「把官方最新版合过来」等含糊说法时，**一律理解为上述完整单向同步**
+  （`upstream/main → main → fivk-custom`）。禁止把 `fivk-custom` 合回 `main`、
+  禁止只更新 `main` 就结束、禁止用 `origin/main` 代替 `upstream/main` 作为来源、
+  禁止因为提到 main 就切到 `main` 上开发。只有用户明确说「只更新 main 镜像」
+  时才允许仅执行第一步。
+- 冲突规则一：个人信息/个性化内容（备案号、社交与项目链接、作者署名、Docker
+  镜像名、fork 声明、术语偏好等）→ 保留我方（`--ours`）。
+- 冲突规则二：功能/逻辑类冲突 → 优先采用官方实现（`--theirs`），再把必要的个性化
+  配置贴回；同一文件两类改动混杂时逐处判断，禁止整文件覆盖。典型混合文件：
+  `Footer.vue`、`package.json`、i18n 语言包、`AGENTS.md`（本文件自身）。
+- 冲突规则三：无冲突但官方新增功能与本地自定义功能重复 → 删除本地重复实现、
+  采用官方版本。已知待办：官方合并 `feat/photo-date-edit`（照片拍摄时间编辑）
+  的 PR 后，必须删除 `fivk-custom` 里的本地实现（`9e7cf8e1`、`d5e7a8c9`）。
+- 禁止 rebase：它会反转 ours/theirs 语义、重写已推送历史并制造重复提交。
+- 安全边界：合并后先汇报「采用了哪些官方实现、保留了哪些个性化内容、有无遗留
+  冲突」，并人工核对备案号、作者署名、Docker 镜像名是否还在；**未经用户明确
+  确认不要 `git push`**。
+
 ## Repository map
 
 ### Application entries
